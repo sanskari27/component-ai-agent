@@ -149,8 +149,22 @@ export class RAGClient {
    */
   async scanFolder(request: ScanComponentFolderRequest): Promise<ScanResult> {
     try {
-      const response = await this.client.post<ScanResult>('/api/scan', request);
-      return response.data;
+      // Convert camelCase to snake_case for Python API
+      const pythonRequest = {
+        folder_path: request.folderPath,
+        include_storybooks: request.includeStorybooks ?? true,
+        include_tests: request.includeTests ?? false,
+        recursive: request.recursive ?? true,
+      };
+
+      const response = await this.client.post('/api/scan', pythonRequest);
+
+      // Convert snake_case response to camelCase
+      return {
+        componentsFound: response.data.components_found,
+        components: response.data.components,
+        errors: response.data.errors || [],
+      };
     } catch (error) {
       console.error('Scan failed:', error);
       throw new Error('Failed to scan folder');

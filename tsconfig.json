@@ -13,8 +13,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@component-ai/shared-types": ["../shared-types/src"]
+    },
+    "baseUrl": "."
   },
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
-

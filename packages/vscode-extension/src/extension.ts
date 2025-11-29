@@ -76,15 +76,15 @@ export async function activate(context: vscode.ExtensionContext) {
           },
           async () => {
             return await client.scanFolder({
-              folder_path: folderPath,
-              include_storybooks: true,
-              include_tests: false,
+              folderPath: folderPath,
+              includeStorybooks: true,
+              includeTests: false,
               recursive: true,
             });
           }
         );
 
-        vscode.window.showInformationMessage(`Scanned ${result.components_found} components`);
+        vscode.window.showInformationMessage(`Scanned ${result.componentsFound} components`);
 
         // Refresh sidebar
         knowledgeBaseProvider.refresh();
@@ -125,9 +125,9 @@ export async function activate(context: vscode.ExtensionContext) {
       try {
         const client = getRAGClient();
         await client.scanFolder({
-          folder_path: path,
-          include_storybooks: true,
-          include_tests: false,
+          folderPath: path,
+          includeStorybooks: true,
+          includeTests: false,
           recursive: true,
         });
         outputChannel.appendLine(`Scanned: ${path}`);

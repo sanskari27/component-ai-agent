@@ -1,0 +1,110 @@
+{
+  "name": "@component-ai/vscode-extension",
+  "displayName": "Component AI Agent",
+  "description": "AI-powered Copilot Agent for React component libraries",
+  "version": "1.0.0",
+  "publisher": "component-ai",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["AI", "Programming Languages", "Other"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "component-ai.agent",
+        "name": "components",
+        "description": "AI agent for React component library suggestions",
+        "isSticky": true
+      }
+    ],
+    "commands": [
+      {
+        "command": "component-ai.scanFolder",
+        "title": "Component AI: Scan Component Folder"
+      },
+      {
+        "command": "component-ai.showKnowledgeBase",
+        "title": "Component AI: Show Knowledge Base"
+      },
+      {
+        "command": "component-ai.startService",
+        "title": "Component AI: Start RAG Service"
+      },
+      {
+        "command": "component-ai.stopService",
+        "title": "Component AI: Stop RAG Service"
+      },
+      {
+        "command": "component-ai.refreshComponents",
+        "title": "Component AI: Refresh Components"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "component-ai",
+          "title": "Component AI",
+          "icon": "$(library)"
+        }
+      ]
+    },
+    "views": {
+      "component-ai": [
+        {
+          "type": "webview",
+          "id": "component-ai.knowledgeBase",
+          "name": "Knowledge Base"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Component AI",
+      "properties": {
+        "componentAI.ragService.port": {
+          "type": "number",
+          "default": 8765,
+          "description": "Port for the RAG service"
+        },
+        "componentAI.ragService.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start RAG service on activation"
+        },
+        "componentAI.componentPaths": {
+          "type": "array",
+          "default": [],
+          "description": "Paths to component folders to index"
+        },
+        "componentAI.embeddingModel": {
+          "type": "string",
+          "default": "all-MiniLM-L6-v2",
+          "description": "Embedding model to use"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "package": "vsce package",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@component-ai/shared-types": "workspace:*",
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.23.0",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
+

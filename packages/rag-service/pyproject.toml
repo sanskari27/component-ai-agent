@@ -1,0 +1,46 @@
+[project]
+name = "rag-service"
+version = "1.0.0"
+description = "RAG service for Component AI Agent"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.109.2",
+    "uvicorn[standard]==0.27.1",
+    "pydantic==2.6.1",
+    "pydantic-settings==2.1.0",
+    "chromadb==0.4.22",
+    "sentence-transformers==2.3.1",
+    "httpx==0.26.0",
+    "python-multipart==0.0.9",
+    "python-dotenv==1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.0.0",
+    "pytest-asyncio==0.23.4",
+    "pytest-cov==4.1.0",
+    "black==24.1.1",
+    "ruff==0.2.1",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "N", "W"]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+asyncio_mode = "auto"
+
